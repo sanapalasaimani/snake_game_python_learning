@@ -1,7 +1,7 @@
 # 🐍💧🔫 Snake, Water, Gun Game
 
 > **Day 1 Learning Project** 🚀  
-> A practice project to refresh Python concepts and learn web framework integration (Flask) in preparation for placements.
+> A practice project to refresh Python concepts and learn web framework integration (Flask) 
 
 ---
 
@@ -52,4 +52,4 @@ To play this game on your own machine, follow these steps:
    Open your web browser and go to: `http://127.0.0.1:5000`
 
 ---
-*Built as a learning milestone for placement preparation.*
+*Built as a learning milestone*
