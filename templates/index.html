@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play the classic Snake, Water, Gun game against the computer in this beautifully designed web app.">
+    <title>Snake Water Gun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <header class="header">
+            <h1>Snake <span class="highlight">Water</span> Gun</h1>
+            <p>Beat the computer in a best-of-3 match!</p>
+        </header>
+
+        <section class="scoreboard">
+            <div class="score-card player-score">
+                <h2>You</h2>
+                <div class="score">{{ user_score }}</div>
+            </div>
+            <div class="round-indicator">
+                <span>Round</span>
+                <div class="round-number">{{ rounds }}/3</div>
+            </div>
+            <div class="score-card comp-score">
+                <h2>Computer</h2>
+                <div class="score">{{ comp_score }}</div>
+            </div>
+        </section>
+
+        {% if not game_over %}
+        <section class="gameplay">
+            <h3>Make Your Choice</h3>
+            <form action="/" method="POST" class="choices">
+                <button type="submit" name="choice" value="s" class="choice-btn snake-btn">
+                    <span class="icon">🐍</span>
+                    <span class="label">Snake</span>
+                </button>
+                <button type="submit" name="choice" value="w" class="choice-btn water-btn">
+                    <span class="icon">💧</span>
+                    <span class="label">Water</span>
+                </button>
+                <button type="submit" name="choice" value="g" class="choice-btn gun-btn">
+                    <span class="icon">🔫</span>
+                    <span class="label">Gun</span>
+                </button>
+            </form>
+        </section>
+        {% else %}
+        <section class="game-over">
+            <h2 class="final-result">{{ final_result }}</h2>
+            <a href="{{ url_for('reset') }}" class="reset-btn">Play Again 🔄</a>
+        </section>
+        {% endif %}
+
+        {% if history %}
+        <section class="history">
+            <h3>Match History</h3>
+            <div class="history-list">
+                {% for item in history %}
+                <div class="history-item result-{{ item.result | lower }}">
+                    <div class="round">R{{ item.round }}</div>
+                    <div class="details">
+                        <span>You: <strong>{{ item.user }}</strong></span>
+                        <span class="vs">vs</span>
+                        <span>Comp: <strong>{{ item.comp }}</strong></span>
+                    </div>
+                    <div class="badge">{{ item.result }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>
